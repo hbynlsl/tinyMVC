@@ -1,5 +1,5 @@
 <?php
-namespace {%namespace%};
+namespace {%namespace%}\Controllers;
 
 use hbynlsl\Controller as BaseController;
 

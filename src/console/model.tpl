@@ -1,5 +1,5 @@
 <?php
-namespace {%namespace%};
+namespace {%namespace%}\Models;
 
 use TORM\Model;
 
