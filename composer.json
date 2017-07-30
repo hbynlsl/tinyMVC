@@ -19,8 +19,7 @@
         "bramus/router": "^1.1",
 		"taq/torm": "^1.3",
 		"pandeydip/dump-die": "^1.0",
-        "clio/clio": "^0.1.8",
-        "elgervb/php-view": "dev-master"
+        "clio/clio": "^0.1.8"
     },
 	"require-dev" : {
 		

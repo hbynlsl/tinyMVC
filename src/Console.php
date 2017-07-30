@@ -5,7 +5,6 @@ require_once realpath(APP_PATH . '../vendor') . '/autoload.php';
 
 use Clio\Console as Cli;
 use hbynlsl\Config;
-use view\TemplateView;
 
 class Console 
 {

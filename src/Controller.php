@@ -1,7 +1,7 @@
 <?php
 namespace hbynlsl;
 
-use view\TemplateView;
+use hbynlsl\View\TemplateView;
 
 class Controller
 {
