@@ -64,6 +64,21 @@ class Console
         if (!file_exists(APP_PATH . '/views')) {
             mkdir(APP_PATH . '/views');
         }
+        if (!file_exists(ROOT_PATH . '/public')) {
+            mkdir(ROOT_PATH . '/public');
+        }
+        if (!file_exists(ROOT_PATH . '/public/images')) {
+            mkdir(ROOT_PATH . '/public/images');
+        }
+        if (!file_exists(ROOT_PATH . '/public/css')) {
+            mkdir(ROOT_PATH . '/public/css');
+        }
+        if (!file_exists(ROOT_PATH . '/public/js')) {
+            mkdir(ROOT_PATH . '/public/js');
+        }
+        if (!file_exists(ROOT_PATH . '/public/uploads')) {
+            mkdir(ROOT_PATH . '/public/uploads');
+        }
         // 创建配置文件
         file_put_contents(APP_PATH . '/router.php', file_get_contents(dirname(__FILE__) . '/console/router.tpl'));
         file_put_contents(APP_PATH . '/config/db.php', file_get_contents(dirname(__FILE__) . '/console/db.tpl'));
@@ -72,6 +87,9 @@ class Console
         file_put_contents(APP_PATH . '/config/file.php', file_get_contents(dirname(__FILE__) . '/console/file.tpl'));
         file_put_contents(APP_PATH . '/config/session.php', file_get_contents(dirname(__FILE__) . '/console/session.tpl'));
         file_put_contents(APP_PATH . '/Bootstrap.php', static::buildTemplate(dirname(__FILE__) . '/console/bootstrap.tpl', 'Bootstrap'));
+        // 创建入口文件
+        file_put_contents(ROOT_PATH . '/public/index.php', file_get_contents(dirname(__FILE__) . '/console/index.tpl'));
+        file_put_contents(ROOT_PATH . '/public/.htaccess', file_get_contents(dirname(__FILE__) . '/console/htaccess.tpl'));
     }
 
     protected static function makeModel($modelName)
