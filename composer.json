@@ -2,7 +2,7 @@
     "name": "hbynlsl/php-mvc",
     "description" : "This is a light weight PHP-MVC framework. It supports Controllers, Models, Views, Routes and etc.",
 	"type": "library",
-	"minimum-stability": "stable",
+	"minimum-stability": "dev",
     "license": "MIT",
     "authors" : [{
         "name" : "Liu Shilong",
