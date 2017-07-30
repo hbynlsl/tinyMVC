@@ -1,5 +1,5 @@
 {
-    "name": "hbynlsl/tinyMVC",
+    "name": "hbynlsl/tiny-mvc",
     "description" : "This is a light weight php-MVC framework. It supports Controllers, Models, Views, Routes and etc.",
 	"type": "library",
 	"minimum-stability": "dev",
