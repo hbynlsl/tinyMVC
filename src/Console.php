@@ -124,8 +124,7 @@ class Console
     {
         return str_replace(['{%className%}', '{%namespace%}'], [
             $class,
-            // Config::get('app.namespace', 'App'),
-            'App',
+            Config::get('app.namespace', 'App'),
         ], file_get_contents($fileName));
     }
 
