@@ -16,11 +16,10 @@
 	"homepage" : "https://github.com/hbynlsl/php-mvc",
 	"require": {
         "bramus/router": "^1.1",
-        "elgervb/php-view": "dev-master",
         "taq/torm": "^1.3"
     },
 	"require-dev" : {
-		"phpunit/phpunit" : "^4.8"
+		"elgervb/php-view": "dev-master"
 	},
 	"autoload" : {
 		"psr-4" : {
