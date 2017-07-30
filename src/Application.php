@@ -44,6 +44,9 @@ class Application
             switch (strtoupper($method)) {
                 case 'RESOURCE':    // 资源控制器路由
                     foreach ($router as $url => $action) {
+                        if (is_string($action)) {
+                            $action = Config::get('app.namespace', 'App') . '\\Controllers\\' . $action;
+                        } 
                         $this->router->get($url, $action . '@index');    // GET index
                         $this->router->get($url . '/create', $action . '@create');  // GET create
                         $this->router->post($url, $action . '@store');  // POST
@@ -58,11 +61,17 @@ class Application
                 case 'PUT':
                 case 'DELETE':
                     foreach ($router as $url => $action) {
+                        if (is_string($action)) {
+                            $action = \hbynlsl\Config::get('app.namespace', 'App') . '\\Controllers\\' . $action;
+                        } 
                         $this->router->$method($url, $action);
                     }
                     break;
                 default:
                     foreach ($router as $url => $action) {
+                        if (is_string($action)) {
+                            $action = \hbynlsl\Config::get('app.namespace', 'App') . '\\Controllers\\' . $action;
+                        } 
                         $this->router->get($url, $action);
                     }
                     break;
