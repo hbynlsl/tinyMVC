@@ -1,0 +1,36 @@
+{
+    "name": "hbynlsl/php-mvc",
+    "description" : "This is a light weight PHP-MVC framework. It supports Controllers, Models, Views, Routes and etc.",
+    "type": "library",
+    "license": "MIT",
+    "authors" : [{
+        "name" : "Liu Shilong",
+        "email" : "hbynlsl@hotmail.com",
+        "role" : "developer"
+    }],
+    "minimum-stability": "dev",
+    "keywords" : [
+		"php",
+		"mvc"
+	],
+	"homepage" : "https://github.com/hbynlsl/php-mvc",
+	"require": {
+        "bramus/router": "^1.1",
+        "elgervb/php-view": "dev-master",
+        "taq/torm": "^1.3"
+    },
+	"require-dev" : {
+		"phpunit/phpunit" : "^4.8"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"hbynlsl\\" : "src"
+		}
+	},
+	"support" : {
+		"wiki" : "https://github.com/hbynlsl/php-mvc/wiki",
+		"source" : "https://github.com/hbynlsl/php-mvc",
+		"issues" : "https://github.com/hbynlsl/php-mvc/issues",
+		"email" : "hbynlsl@hotmail.com"
+	}
+}
