@@ -18,10 +18,11 @@
         "bramus/router": "^1.1",
 		"taq/torm": "^1.3",
 		"pandeydip/dump-die": "^1.0",
-        "clio/clio": "^0.1.8"
+        "clio/clio": "^0.1.8",
+        "elgervb/php-view": "dev-master"
     },
 	"require-dev" : {
-		"elgervb/php-view": "dev-master"
+		
 	},
 	"autoload" : {
 		"psr-4" : {
