@@ -1,6 +1,6 @@
 {
-    "name": "hbynlsl/php-mvc",
-    "description" : "This is a light weight PHP-MVC framework. It supports Controllers, Models, Views, Routes and etc.",
+    "name": "hbynlsl/tinyMVC",
+    "description" : "This is a light weight php-MVC framework. It supports Controllers, Models, Views, Routes and etc.",
 	"type": "library",
 	"minimum-stability": "dev",
     "license": "MIT",
@@ -13,7 +13,7 @@
 		"php",
 		"mvc"
 	],
-	"homepage" : "https://github.com/hbynlsl/php-mvc",
+	"homepage" : "https://github.com/hbynlsl/tinyMVC",
 	"require": {
         "bramus/router": "^1.1",
 		"taq/torm": "^1.3",
@@ -29,9 +29,9 @@
 		}
 	},
 	"support" : {
-		"wiki" : "https://github.com/hbynlsl/php-mvc/wiki",
-		"source" : "https://github.com/hbynlsl/php-mvc",
-		"issues" : "https://github.com/hbynlsl/php-mvc/issues",
+		"wiki" : "https://github.com/hbynlsl/tinyMVC/wiki",
+		"source" : "https://github.com/hbynlsl/tinyMVC",
+		"issues" : "https://github.com/hbynlsl/tinyMVC/issues",
 		"email" : "hbynlsl@hotmail.com"
 	}
 }
