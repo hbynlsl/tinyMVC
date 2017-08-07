@@ -67,6 +67,9 @@ class Application
                         $this->router->$method($url, $action);
                     }
                     break;
+                case '404':
+                    $this->router->set404($router);
+                    break;
                 default:
                     foreach ($router as $url => $action) {
                         if (is_string($action)) {

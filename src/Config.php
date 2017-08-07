@@ -3,6 +3,7 @@ namespace hbynlsl;
 
 class Config
 {
+    protected static $config = array();
     /**
      * 获取配置项
      *
@@ -15,14 +16,16 @@ class Config
         // 拆分$name
         $pieces = explode('.', $name);
         $configFile = $pieces[0];
-        $config = require_once APP_PATH . '/config/' . $configFile . '.php';
+        if (!isset(static::$config[$configFile])) {
+            static::$config[$configFile] = require_once APP_PATH . '/config/' . $configFile . '.php';
+        }
         if (1 == count($pieces)) {
-            return $config;
+            return static::$config[$configFile];
         }
         $configName = $pieces[1];
         // 读取配置
-        if (array_key_exists($configName, $config)) {
-            return $config[$configName];
+        if (array_key_exists($configName, static::$config[$configFile])) {
+            return static::$config[$configFile][$configName];
         }
         return $default;
     }

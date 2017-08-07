@@ -32,7 +32,7 @@ class Controller
         // 通过反射类获取类名称
         $className = $reflection->getShortName();
         // 去除Controller后缀，并调整为小写字符
-        $className = strtolower(rtrim($className, 'Controller'));
+        $className = strtolower(basename($className, 'Controller'));
         $reflection = null;
         // 2. 获取当前方法名称
         // 2.1 获取当前方法的调用堆栈
@@ -40,7 +40,7 @@ class Controller
         // 2.2 获取调用当前方法的方法名
         $methodName = $methods[1]['function'];
         // 2.3 去除Action后缀，并调整为小写字符
-        $methodName = strtolower(rtrim($methodName, 'Action'));
+        $methodName = strtolower(basename($methodName, 'Action'));
         // 3. 处理待显示的视图文件
         if (!$file) {
             $controllerName = $className;

@@ -9,8 +9,11 @@ class Session
      * @param  string $default 默认值
      * @return string          session数据
      */
-    public static function get($name, $default = '')
+    public static function get($name = '', $default = '')
     {
+        if (!$name) {
+            return $_SESSION;
+        }
         if (array_key_exists($name, $_SESSION)) {
             return $_SESSION[$name];
         }
@@ -24,7 +27,7 @@ class Session
 
     public static function has($name)
     {
-        return array_key_exists($name, $_SESSION);
+        return array_key_exists($name, $_SESSION) && !empty($_SESSION[$name]);
     }
 
     public static function destroy()

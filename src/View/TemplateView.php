@@ -36,7 +36,7 @@ class TemplateView extends SimpleTemplateView
         $viewmodel = $this;
         
         // if blocks
-        $content = preg_replace_callback("/{#(.*)([=<>\!]{2})(.*)}(.*){\/(.*)}/Usi", function ($match) use ($viewmodel)
+        $content = preg_replace_callback("/<{#(.*)([=<>\!]{2})(.*)}>(.*)<{\/(.*)}>/Usi", function ($match) use ($viewmodel)
         {
             $left = preg_match("/[\'\"]/", $match[1]) ? substr($match[1], 1, $match[1] - 1) : $viewmodel->{$match[1]};
             $operator = $match[2];
@@ -65,14 +65,14 @@ class TemplateView extends SimpleTemplateView
         $viewmodel = $this;
         
         // list block, starts with ^
-        $content = preg_replace_callback("/{\^(.*)}(.*){\/(.*)}/Usi", function ($match) use ($viewmodel)
+        $content = preg_replace_callback("/<{\^(.*)}>(.*)<{\/(.*)}>/Usi", function ($match) use ($viewmodel)
         {
             $iter = $viewmodel->{$match[1]};
             if (is_array($iter) || $iter instanceof \Traversable) {
                 $listTpl = $match[2];
                 $result = '';
                 foreach ($iter as $key => $value) {
-                    $result .= str_replace('{.}', $value, $listTpl);
+                    $result .= str_replace('<{.}>', $value, $listTpl);
                 }
                 return $result;
             }
@@ -81,7 +81,7 @@ class TemplateView extends SimpleTemplateView
         }, $aContent);
         
         // if blocks
-        $content = preg_replace_callback("/{#(.*)}(.*){\/(.*)}/Usi", function ($match) use ($viewmodel)
+        $content = preg_replace_callback("/<{#(.*)}>(.*)<{\/(.*)}>/Usi", function ($match) use ($viewmodel)
         {
             if ($viewmodel->{$match[1]} != "") {
                 return trim($match[2]);
@@ -90,7 +90,7 @@ class TemplateView extends SimpleTemplateView
         }, $content);
         
         // NOT blocks
-        $content = preg_replace_callback("/{!(.*)}(.*){\/(.*)}/Usi", function ($match) use ($viewmodel)
+        $content = preg_replace_callback("/<{!(.*)}>(.*)<{\/(.*)}>/Usi", function ($match) use ($viewmodel)
         {
             if ($viewmodel->{$match[1]} == "") {
                 return trim($match[2]);
@@ -111,7 +111,7 @@ class TemplateView extends SimpleTemplateView
     private function replaceVars($aContent)
     {
         $viewmodel = $this;
-        return preg_replace_callback("/{(.*)}/Ui", function ($match) use ($viewmodel)
+        return preg_replace_callback("/<{(.*)}>/Ui", function ($match) use ($viewmodel)
         {
             $var = $match[1];
             if (strstr($var, ".")) { // Object?
@@ -124,7 +124,8 @@ class TemplateView extends SimpleTemplateView
                         $method = preg_replace("/\(\)/", "", $parts[1]);
                         $result = $obj->{$method}();
                     } else {
-                        $result = $viewmodel->{$parts[count($parts) - 1]};
+                        // $result = $viewmodel->{$parts[count($parts) - 1]};
+                        $result = $obj->{$parts[count($parts) - 1]};
                     }
                 
                 return $result;
