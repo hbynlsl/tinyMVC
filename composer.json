@@ -30,7 +30,7 @@
 		},
 		"files": [
 			"src/helpers.php"
-		],
+		]
 	},
 	"support" : {
 		"wiki" : "https://github.com/hbynlsl/tinyMVC/wiki",
