@@ -27,7 +27,10 @@
 	"autoload" : {
 		"psr-4" : {
 			"hbynlsl\\" : "src"
-		}
+		},
+		"files": [
+			"src/helpers.php"
+		],
 	},
 	"support" : {
 		"wiki" : "https://github.com/hbynlsl/tinyMVC/wiki",
