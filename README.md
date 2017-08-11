@@ -35,6 +35,5 @@ tinyMVC支持定义资源控制器路由，只需要在"resource"段中定义 ke
 assign($name, $value)：为视图变量赋值  
 display()：显示视图界面 
 ## 视图
-在视图中可以使用原生PHP代码输出数据（this->name，name由控制器传递过来）；  
-也可以使用 {name} 形式输出文本型数据或返回文本型的函数。
+视图采用blade模板语法，支持视图继承，具体文档请查看[Laravel5.4-blade](https://laravel.com/docs/5.4/blade)。
 
