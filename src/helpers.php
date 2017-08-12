@@ -3,6 +3,20 @@
 use hbynlsl\Config;
 use hbynlsl\Session;
 
+// 读取配置项
+if (!function_exists('config')) {
+    /**
+     * 读取配置项
+     * @param  string $name    待读取的配置项名称
+     * @param  string $default 配置项默认值
+     * @return string          配置项结果
+     */
+    function config($name, $default = '') 
+    {
+        return Config::get($name, $default);
+    }
+}
+
 // 页面跳转函数
 if (!function_exists('redirect')) {
     /**

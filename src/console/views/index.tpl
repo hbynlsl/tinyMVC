@@ -17,7 +17,7 @@
             @endforeach
             <td>操作</td>
         </tr>
-        <tr v-for="(item, index) in rows">
+        <tr v-for="(item, index) in records">
             <td>@@{{ index + 1 }}</td>
             <?php
             foreach ($fields as $k => $v) {
@@ -30,6 +30,23 @@
             </td>
         </tr>
     </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+        <li :class="{disabled: page == 1}">
+            <a href="#" aria-label="Previous" @@click.prevent="jumpToPrev">
+            <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li v-for="item in pages" :class="{active: item == page}">
+            <a href="#" @@click.prevent="jumpToPage(item)">@@{{ item }}</a>
+        </li>
+        <li :class="{disabled: page == pages}">
+            <a href="#" aria-label="Next" @@click.prevent="jumpToNext">
+            <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        </ul>
+    </nav>
 </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -63,7 +80,9 @@
 <script type="text/javascript">
 var data = { 
     rows: @{!! $rows !!},
-    row: {!! $fields_json !!}
+    row: {!! $fields_json !!},
+    pageSize: @{{ config('page.size', 10) }},    // 每页显示记录个数
+    page: 1         // 当前页码
 };
 var vm = new Vue({
     el: '#app',
@@ -130,6 +149,31 @@ var vm = new Vue({
                         }
                     });
             }
+        },
+        jumpToPage: function(index) {
+            this.page = index;
+        },
+        jumpToPrev: function() {
+            if (this.page > 1) {
+                this.page = this.page - 1;
+            }
+        },
+        jumpToNext: function() {
+            if (this.page < this.pages) {
+                this.page = this.page + 1;
+            }
+        }
+    },
+    computed: {
+        recordsNumber: function() {
+            return this.rows.length;
+        },
+        pages: function() {
+            return Math.ceil(this.rows.length / this.pageSize);
+        },
+        records: function() {
+            var pageBegin = (this.page - 1) * this.pageSize;
+            return this.rows.slice(pageBegin, pageBegin + this.pageSize);
         }
     }
 });
