@@ -54,6 +54,7 @@ class Application
                         $this->router->get($url . '/(\d+)/edit', $action . '@edit'); // GET id edit
                         $this->router->put($url . '/(\d+)', $action . '@update'); // PUT id
                         $this->router->delete($url . '/(\d+)', $action . '@destroy');  // DELETE id
+                        $this->router->get($url . '/all', $action . '@all');    // GET all
                     }
                     break;
                 case 'GET':

@@ -39,4 +39,9 @@ class {%className%} extends BaseController
     {
 
     }
+
+    public function all()
+    {
+        
+    }
 }
