@@ -6,7 +6,17 @@
 php tiny list   显示所有命令  
 php tiny make:app   初始化应用程序目录结构  
 php tiny make:controller    创建Controller类  
+      
+      php tiny make:controller PostController  `
+      php tiny make:controller PostController -r  `
+
 php tiny make:model 创建Model类  
+      
+      php tiny make:model Post  `
+
+php tiny make:curd  创建CURD操作（控制器、模型、视图）  
+      
+      php tiny make:curd Post name=名称;image=图片  `
 
 ### composer.json
 在composer.json文件中，给出psr-4形式的自动加载规范

@@ -25,6 +25,7 @@ class Console
                 static::output('make:app 创建应用程序目录结构');
                 static::output('make:controller 创建控制器类');
                 static::output('make:model 创建模型类');
+                static::output('make:curd 创建CURD操作（控制器、模型、视图）');
                 static::output('route:clear 清空路由');
                 break;
             case 'make:controller': // 创建控制器类
@@ -32,6 +33,11 @@ class Console
                 break;
             case 'make:model':  // 创建模型类
                 static::makeModel($params[2]);
+                break;
+            case 'make:curd':   // 创建CURD操作（控制器、模型、视图）
+                static::makeCurdController($params[2], $params[3]);
+                static::makeModel($params[2]);
+                static::makeView($params[2], $params[3]);
                 break;
             case 'make:app':    // 创建应用程序目录结构
                 static::makeApplication();
@@ -91,6 +97,33 @@ class Console
         file_put_contents(ROOT_PATH . '/public/.htaccess', file_get_contents(dirname(__FILE__) . '/console/htaccess.tpl'));
     }
 
+    protected static function makeView($className, $fields = array())
+    {
+        $className = strtolower($className);
+        $fs = explode(';', $fields);
+        $params = [];
+        $params['className'] = $className;
+        foreach ($fs as $value) {
+            $f = explode('=', $value);
+            $params['fields'][$f[0]] = iconv('gb2312', 'UTF-8', $f[1]);
+            $params['fieldsNames'][$f[0]] = '';
+        }
+        $params['fields_json'] = json($params['fieldsNames']);
+        // var_dump($params);
+        $file = APP_PATH . '/views/' . $className . '/index.blade.php';
+        if (!file_exists(APP_PATH . '/views/' . $className)) {
+            mkdir(APP_PATH . '/views/' . $className);
+        }
+        // $stubName = dirname(__FILE__) . '/console/views.index.tpl';
+        $stubName = 'views.index';
+        $data = static::compileTpl($stubName, $params);
+        if (false !== file_put_contents($file, $data)) {
+            static::output($className . '/index.blade.php创建成功');
+        } else {
+            static::output($className . '/index.blade.php创建失败');
+        }
+    }
+
     protected static function makeModel($modelName)
     {
         $file = APP_PATH . '/models/' . $modelName . '.php';
@@ -100,6 +133,24 @@ class Console
             static::output($modelName . '创建成功');
         } else {
             static::output($modelName . '创建失败');
+        }
+    }
+
+    protected static function makeCurdController($controllerName, $params = '')
+    {
+        $fields = array();
+        $fs = explode(';', $params);
+        foreach ($fs as $value) {
+            $f = explode('=', $value);
+            $fields[] = $f[0];
+        }
+        $file = APP_PATH . '/controllers/' . $controllerName . 'Controller.php';
+        $stubName = dirname(__FILE__) . '/console/controller.curd.tpl';
+        $data = static::buildTemplate($stubName, $controllerName, $fields);
+        if (false !== file_put_contents($file, $data)) {
+            static::output($controllerName . 'Controller创建成功');
+        } else {
+            static::output($controllerName . 'Controller创建失败');
         }
     }
 
@@ -119,11 +170,35 @@ class Console
         }
     }
 
-    protected static function buildTemplate($fileName, $class)
+    protected static function compileTpl($fileName, $params = array())
     {
-        return str_replace(['{%className%}', '{%namespace%}'], [
+        $path = [__DIR__ . '/console'];  // 默认视图文件目录
+        $cachePath = APP_PATH . '/views/cache'; // 编译后的视图目录
+        $compiler = new \terranc\Blade\Compilers\BladeCompiler($cachePath);
+        $enginer = new \terranc\Blade\Engines\CompilerEngine($compiler);
+        $finder = new \terranc\Blade\FileViewFinder($path);
+        $finder->addExtension('tpl');
+        // 创建视图对象
+        $view = new \terranc\Blade\Factory(
+            $enginer,   // 模块编译引擎
+            $finder    // 模板文件查找引擎
+        );
+        // 显示视图
+        $content = $view->make($fileName, $params)->render();
+        return $content;
+    }
+
+    protected static function buildTemplate($fileName, $class, $fields = array())
+    {
+        $params = '[';
+        foreach ($fields as $field) {
+            $params .= "'$field', ";
+        }
+        $params = rtrim($params, ',') . ']';
+        return str_replace(['{%className%}', '{%namespace%}', '{%fields%}'], [
             $class,
             Config::get('app.namespace', 'App'),
+            $params
         ], file_get_contents($fileName));
     }
 
