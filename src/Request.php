@@ -3,6 +3,30 @@ namespace hbynlsl;
 
 class Request 
 {
+    /**
+     * 处理单文件上传
+     * @param  string $name 文件上传字段的name属性
+     * @return string|boolean       若文件上传成功，返回文件的保存目录；否则返回false
+     */
+    public static function uploadFile($name = '')
+    {
+        if (isset($_FILES) && isset($_FILES[$name])) {
+            if ($_FILES[$name]['error'] == 0) {
+                // 文件上传成功
+                $fileName = 'uploads/' . date('Y-m-d');
+                if (!file_exists($fileName)) {
+                    mkdir(realpath($fileName));
+                }
+                $fileName .= '/' . $_FILES[$name]['name'];
+                // 移动文件
+                if (move_uploaded_file($_FILES[$name]['tmp_name'], $fileName)) {
+                    return $fileName;
+                }
+            }
+        }
+        return false;
+    }
+
     public static function param($name, $default = '')
     {
         if (array_key_exists($name, $_GET)) {
