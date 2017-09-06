@@ -39,6 +39,11 @@ class Request
 
     }
 
+    public static function has($name)
+    {
+        return array_key_exists($name, $_REQUEST);
+    }
+
     public static function get($name, $default = '')
     {
         if (array_key_exists($name, $_GET)) {
